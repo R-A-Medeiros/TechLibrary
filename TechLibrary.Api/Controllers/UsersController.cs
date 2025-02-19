@@ -13,14 +13,14 @@ public class UsersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
-    public IActionResult Create(RequestUserJson request)
+    public async Task<IActionResult> Create([FromServices] IRegisterUserUseCase useCase, [FromBody]RequestUserJson request)
     {
         // Deixar o metodo assincrono na proxima implementação
         try
         {
-            var useCase = new RegisterUserUseCase();
+            //var useCase = new IRegisterUserUseCase(request);
 
-            var response = useCase.Execute(request);
+            var response = await useCase.Execute(request);
 
             return Created(string.Empty, response);
         }
