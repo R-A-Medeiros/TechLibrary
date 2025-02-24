@@ -1,4 +1,5 @@
-﻿using TechLibrary.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TechLibrary.Domain.Entities;
 using TechLibrary.Domain.Repositories;
 
 namespace TechLibrary.Infra.DataAccess.Repositories;
@@ -13,5 +14,13 @@ internal class UserRepository : IUserRepository
     public async Task Add(User user)
     {
        await _context.Users.AddAsync(user);
+    }
+
+    public async Task<bool> ExistsEmail(string email)
+    {
+       var result = await _context.Users.
+                        AnyAsync(user => user.Email.Equals(email));
+
+        return result;
     }
 }

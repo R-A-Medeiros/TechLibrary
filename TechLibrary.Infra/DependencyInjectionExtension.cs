@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TechLibrary.Domain.Repositories;
+using TechLibrary.Domain.Security.Cryptography;
+using TechLibrary.Domain.Security.Tokens;
 using TechLibrary.Infra.DataAccess;
 using TechLibrary.Infra.DataAccess.Repositories;
+using TechLibrary.Infra.Security.Tokens.Access;
 
 namespace TechLibrary.Infra;
 public static class DependencyInjectionExtension
@@ -13,7 +16,9 @@ public static class DependencyInjectionExtension
         AddDbContext(services, configuration);
         AddRepositories(services);
 
-        
+        services.AddScoped<IPasswordEncripter, Security.Cryptography.BCrypt>();
+        services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
+
     }
 
     private static void AddRepositories(IServiceCollection services)

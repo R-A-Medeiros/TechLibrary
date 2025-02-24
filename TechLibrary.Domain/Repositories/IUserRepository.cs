@@ -9,4 +9,5 @@ namespace TechLibrary.Domain.Repositories;
 public interface IUserRepository
 {
     Task Add(User user);
+    Task<bool> ExistsEmail(string email);
 }
