@@ -25,6 +25,8 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IDoLoginRepository, DoLoginRepositorie>();
+        services.AddScoped<IBookRepository, BookRepository>();
        
     }
 

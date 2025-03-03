@@ -11,12 +11,12 @@ internal class UserRepository : IUserRepository
     {
         _context = context;
     }
-    public async Task Add(User user)
+    public async Task AddAsync(User user)
     {
        await _context.Users.AddAsync(user);
     }
 
-    public async Task<bool> ExistsEmail(string email)
+    public async Task<bool> ExistsEmailAsync(string email)
     {
        var result = await _context.Users.
                         AnyAsync(user => user.Email.Equals(email));

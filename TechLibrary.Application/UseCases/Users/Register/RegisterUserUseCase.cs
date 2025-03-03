@@ -40,7 +40,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             Password = _passwordEncripter.Encrypt(request.Password)
         };
 
-        await _userRepository.Add(entity);
+        await _userRepository.AddAsync(entity);
         await _unitOfWork.Commit();
 
         return new ResponseRegisteredUserJson
@@ -56,7 +56,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         var result = validator.Validate(request);
         
-        var existUserWithEmail = await _userRepository.ExistsEmail(request.Email);
+        var existUserWithEmail = await _userRepository.ExistsEmailAsync(request.Email);
         if (existUserWithEmail)
         {
             result.Errors.Add(new ValidationFailure("Email", "Email já registrado na plataforma"));

@@ -1,4 +1,5 @@
 ﻿
+using TechLibrary.Domain.Entities;
 using TechLibrary.Domain.Security.Cryptography;
 using BC = BCrypt.Net.BCrypt;
 
@@ -11,4 +12,6 @@ internal class BCrypt : IPasswordEncripter
 
         return passwordHash;
     }
+
+    public bool Verify(string password, User user) => BC.Verify(password, user.Password);
 }

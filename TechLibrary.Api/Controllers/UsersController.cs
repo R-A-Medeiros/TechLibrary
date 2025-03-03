@@ -6,7 +6,7 @@ using TechLibrary.Exception;
 
 namespace TechLibrary.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
@@ -15,26 +15,8 @@ public class UsersController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorMessagesJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromServices] IRegisterUserUseCase useCase, [FromBody]RequestUserJson request)
     {
-        try
-        {
-            var response = await useCase.Execute(request);
+        var response = await useCase.Execute(request);
 
-            return Created(string.Empty, response);
-        }
-        catch(TechLibraryException ex)
-        {
-            return BadRequest(new ResponseErrorMessagesJson
-            {
-                Errors = ex.GetErrorMessages()
-            });
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorMessagesJson
-            {
-                Errors = ["Erro Desconhecido"]
-            });
-        }
-       
+        return Created(string.Empty, response);
     }
 }
